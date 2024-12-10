@@ -1,0 +1,65 @@
+form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-family: "Vazir", "IRANSans", Tahoma, Arial, sans-serif; /* فونت فارسی */
+    text-align: right; /* راست‌چین کردن متن */
+    direction: rtl; /* جهت نوشتار راست‌چین */
+  }
+  
+  form .form-group {
+    display: flex; /* استفاده از فلکس‌باکس */
+    align-items: center; /* عمودی وسط‌چین */
+    margin-bottom: 16px;
+  }
+  
+  form .form-group label {
+    min-width: 100px; /* عرض ثابت برای لیبل‌ها */
+    font-size: 14px;
+    margin-bottom: 0; /* حذف فاصله اضافی */
+    color: #333;
+  }
+  
+  form .form-group input[type="text"],
+  form .form-group input[type="password"] {
+    flex: 1; /* گسترش اینپوت برای پر کردن فضای باقیمانده */
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  form .form-group input[type="radio"] {
+    margin-left: 8px; /* فاصله بین رادیو و متن */
+  }
+  
+  form button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: inherit;
+  }
+  
+  form button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  form button:hover:not(:disabled) {
+    background-color: #0056b3;
+  }
+  
+
+  .error {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+  }
