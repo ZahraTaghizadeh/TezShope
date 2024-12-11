@@ -1,0 +1,37 @@
+<table class="user-table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>نام</th>
+            <th>نام خانوادگی</th>
+            <th>نقش</th>
+            <th>شماره موبایل</th>
+            <th>کد ملی</th>
+            <th>نام کاربری</th>
+            <th>ویرایش</th>
+            <th>حذف</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (user of users; track user.nationalCode;let i = $index)
+        {
+        <tr>
+            <td>{{ i+ 1}}</td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.role === 1 ? 'ادمین': 'عادی'}}</td>
+            <td>{{user.phone}}</td>
+            <td>{{user.nationalCode}}</td>
+            <td>{{user.userName}}</td>
+            <td>
+                <button class="edit-button" (click)="editUser(user)">ویرایش</button>
+            </td>
+            <td>
+                <button class="delete-button" (click)="deleteUser(user.nationalCode)">حذف</button>
+            </td>
+        </tr>
+        }@empty {
+            کاربری ثبت نشده است.
+        }
+    </tbody>
+</table>
