@@ -8,3 +8,8 @@ export interface UserModel{
     password: string;
 
 }
+export interface ProductModel{
+    productName: string,
+    productCode: string,
+    productWeight: number
+}

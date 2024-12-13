@@ -35,19 +35,27 @@ form {
   form .form-group input[type="radio"] {
     margin-left: 8px; /* فاصله بین رادیو و متن */
   }
-  
-  form button {
+  .button-container {
+    display: flex; /* ساختار افقی */
+    gap: 10px; /* فاصله بین دکمه‌ها */
+  }
+  .save,.back{
+
     display: inline-block;
     padding: 10px 20px;
-    background-color: #007bff;
     color: #fff;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+    border-radius: 4px;
     font-family: inherit;
+    font-size: 16px;
   }
-  
+  .save {
+    background-color: rgb(67, 158, 67);
+  }
+  .back {
+    background-color: rgb(218, 55, 55);
+  }
   form button:disabled {
     background-color: #cccccc;
     cursor: not-allowed;

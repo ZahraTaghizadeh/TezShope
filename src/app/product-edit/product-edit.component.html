@@ -1,0 +1,27 @@
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="productName">نام کالا</label>
+        <input id="productName" formControlName="productName" type="text" />
+        <div *ngIf="submitted && productForm.get('productName')?.hasError('required')" class="error">
+            نام کالا الزامی است.
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="productCode">کد کالا</label>
+        <input id="productCode" formControlName="productCode" type="text" />
+        <div *ngIf="submitted && productForm.get('productCode')?.hasError('required')" class="error">
+            کد کالا الزامی است.
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="productWeight">کد ملی</label>
+        <input id="productWeight" formControlName="productWeight" type="text" />
+        <div *ngIf="submitted && productForm.get('productWeight')?.invalid " class="error">
+            وزن کالا الزامی است.
+        </div>
+    </div>
+    <div class="button-container">
+        <button type="submit" class="save" (click)="onSubmit()">ارسال</button>
+        <button type="button" class="back" (click)="backToProductList()">بازگشت</button>
+    </div>
+</form>

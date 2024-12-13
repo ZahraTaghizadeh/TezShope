@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators,ReactiveFormsModule  } from '@angula
 import { UserModel } from '../../model/user.model';
 import { CommonModule } from '@angular/common'; 
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-user',
   imports: [ReactiveFormsModule,CommonModule ],
@@ -13,7 +14,7 @@ export class AddUserComponent {
   userForm: FormGroup= new FormGroup({
     firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
-      role: new FormControl('0', Validators.required),
+      role: new FormControl(0, Validators.required),
       nationalCode: new FormControl('', [Validators.required, Validators.pattern(/^\d{10}$/)]),
       phone: new FormControl('', Validators.required),
       userName: new FormControl('', Validators.required),
@@ -21,7 +22,7 @@ export class AddUserComponent {
   });
   user:UserModel[] = []
   submitted: boolean = false;
-  constructor(private userService:UserService){
+  constructor(private userService:UserService, private router: Router){
 
   }
   onSubmit(){
@@ -30,26 +31,27 @@ export class AddUserComponent {
       const newUser: UserModel ={
         firstName: this.userForm.value.firstName,
       lastName: this.userForm.value.lastName,
-      role: +this.userForm.value.role, 
+      role: Number(this.userForm.value.role), 
       nationalCode: this.userForm.value.nationalCode,
       phone: this.userForm.value.phone,
       userName: this.userForm.value.userName,
       password: this.userForm.value.password,
       }
+      console.log('Role Value:', this.userForm.value.role);
+
       this.user.push(newUser);
       this.userService.adduser(this.userForm.value).subscribe({
         next:(res) => {
-          console.log('success');
+          this.router.navigate(['/userlist'])
         },
         error:(err) => {
           console.log('faild', err);
         }
       })
-      console.log('Success',newUser)
+      
     }
-    
-    // else{
-    //   alert('لطفا فرم را به درستی پر کنید.')
-    // }
+  }
+  backToListUser(){
+    this.router.navigate(['/userlist'])
   }
 }

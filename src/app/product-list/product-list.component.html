@@ -1,0 +1,36 @@
+<header class="header-bar">
+    <h1>لیست کالاها</h1>
+    <button class="add-product-button" [routerLink]="'/productadd'">افزودن کالای جدید</button>
+  </header>
+  
+<table class="user-table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>نام کالا</th>
+            <th>کد کالا</th>
+            <th>وزن کالا</th>
+            <th>ویرایش</th>
+            <th>حذف</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (product of products; track product.productCode;let i = $index)
+        {
+        <tr>
+            <td>{{ i+ 1}}</td>
+            <td>{{product.productName}}</td>
+            <td>{{product.productCode}}</td>
+            <td>{{product.productWeight}}</td>
+            <td>
+                <button [routerLink]="['/productedit',product.productCode]" (click)="editUser(product.productCode)" class="edit-button">ویرایش</button>
+            </td>
+            <td>
+                <button class="delete-button" (click)="deleteUser(product.productCode)">حذف</button>
+            </td>
+        </tr>
+        }@empty {
+        کالایی ثبت نشده است.
+        }
+    </tbody>
+</table>

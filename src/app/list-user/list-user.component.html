@@ -1,3 +1,8 @@
+<header class="header-bar">
+    <h1>لیست کاربران</h1>
+    <button class="add-user-button" [routerLink]="'/adduser'">افزودن کاربر جدید</button>
+  </header>
+  
 <table class="user-table">
     <thead>
         <tr>
@@ -24,14 +29,15 @@
             <td>{{user.nationalCode}}</td>
             <td>{{user.userName}}</td>
             <td>
-                <button class="edit-button" (click)="editUser(user)">ویرایش</button>
+                <button [routerLink]="['/edituser',user.nationalCode.toString()]" routerLinkActive="Active"
+                    (click)="editUser(user.nationalCode)" class="edit-button">ویرایش</button>
             </td>
             <td>
                 <button class="delete-button" (click)="deleteUser(user.nationalCode)">حذف</button>
             </td>
         </tr>
         }@empty {
-            کاربری ثبت نشده است.
+        کاربری ثبت نشده است.
         }
     </tbody>
 </table>

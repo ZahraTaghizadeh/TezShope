@@ -11,7 +11,7 @@ export class UserService {
     getUsers() {
         return this.http.get('http://localhost:3000/api/users');
     }
-    getUser(nationalCode:number):Observable<any>{
+    getUser(nationalCode:string):Observable<any>{
         return this.http.get('http://localhost:3000/api/user/'+nationalCode);
     }
     adduser(user:UserModel):Observable<any>{

@@ -1,0 +1,60 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="firstName">نام</label>
+        <input id="firstName" formControlName="firstName" type="text" />
+        <div *ngIf="submitted && userForm.get('firstName')?.hasError('required')" class="error">
+            نام الزامی است.
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="lastName">نام خانوادگی</label>
+        <input id="lastName" formControlName="lastName" type="text" />
+        <div *ngIf="submitted && userForm.get('lastName')?.hasError('required')" class="error">
+            نام خانوادگی الزامی است.
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="role">نقش</label>
+        <label>
+            <input type="radio" formControlName="role" value="0" /> عادی
+        </label>
+        <label>
+            <input type="radio" formControlName="role" value="1" /> ادمین
+        </label>
+        <div *ngIf="submitted && userForm.get('role')?.invalid " class="error">
+            انتخاب نقش الزامی است.
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="nationalCode">کد ملی</label>
+        <input id="nationalCode" formControlName="nationalCode" type="text" />
+        <div *ngIf="submitted && userForm.get('nationalCode')?.invalid " class="error">
+            کد ملی باید 10 رقم عددی باشد.
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="phone">شماره موبایل</label>
+        <input id="phone" formControlName="phone" type="text" />
+        <div *ngIf="submitted && userForm.get('phone')?.invalid " class="error">
+            شماره موبایل الزامی است.
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="userName">نام کاربری</label>
+        <input id="userName" formControlName="userName" type="text" />
+        <div *ngIf="submitted && userForm.get('userName')?.invalid " class="error">
+            یوزرنیم الزامی است.
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">رمز</label>
+        <input id="password" formControlName="password" type="text" />
+        <div *ngIf="submitted && userForm.get('password')?.invalid " class="error">
+            رمز عبور الزامی است.
+        </div>
+    </div>
+    <div class="button-container">
+        <button type="submit" class="save" (click)="onSubmit()">ارسال</button>
+        <button type="button" class="back" (click)="backToListUser()">بازگشت</button>
+    </div>
+</form>

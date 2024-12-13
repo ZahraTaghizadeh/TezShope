@@ -16,10 +16,10 @@
     <div class="form-group">
         <label for="role">نقش</label>
         <label>
-            <input type="radio" formControlName="role" value="0" /> عادی
+            <input type="radio" formControlName="role" [value]="0" /> عادی
         </label>
         <label>
-            <input type="radio" formControlName="role" value="1" /> ادمین
+            <input type="radio" formControlName="role" [value]="1" /> ادمین
         </label>
         <div *ngIf="submitted && userForm.get('role')?.invalid " class="error">
             انتخاب نقش الزامی است.
@@ -27,7 +27,7 @@
     </div>
     <div class="form-group">
         <label for="nationalCode">کد ملی</label>
-        <input id="nationalCode" formControlName="nationalCode" type="text"/>
+        <input id="nationalCode" formControlName="nationalCode" type="text" />
         <div *ngIf="submitted && userForm.get('nationalCode')?.invalid " class="error">
             کد ملی باید 10 رقم عددی باشد.
         </div>
@@ -53,5 +53,8 @@
             رمز عبور الزامی است.
         </div>
     </div>
-    <button type="submit">ارسال</button>
+    <div class="button-container">
+        <button type="submit" class="save">ارسال</button>
+        <button type="button" class="back" (click)="backToListUser()">بازگشت</button>
+    </div>
 </form>
