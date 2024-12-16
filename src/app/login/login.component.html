@@ -1,0 +1,18 @@
+<form [formGroup]="loginForm"  class="login-container">
+    <h2>ورود</h2>
+    <div class="form-group">
+        <label for="userName">نام کاربری</label>
+        <input id="userName" formControlName="userName" type="text" />
+        <div *ngIf="submitted && loginForm.get('userName')?.hasError('required')" class="error">
+            نام کاربری الزامی است.
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">رمز عبور</label>
+        <input id="password" formControlName="password" type="text" />
+        <div *ngIf="submitted && loginForm.get('password')?.hasError('required')" class="error">
+            رمز عبور الزامی است.
+        </div>
+    </div>
+        <button type="submit" class="btn" (click)="onLogin()">ورود</button>
+</form>
