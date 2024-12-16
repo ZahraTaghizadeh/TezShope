@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ProductModel, UserModel } from '../../model/user.model';
+
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import { ProductService } from '../../services/product.service';
+import { ProductModel } from '../../model/product.model';
 
 @Component({
   selector: 'app-product-add',
@@ -14,23 +15,31 @@ import { Router } from '@angular/router';
 export class ProductAddComponent {
 
   productForm: FormGroup = new FormGroup({
-    productName: new FormControl('', Validators.required),
-    productCode: new FormControl('', Validators.required),
-    productWeight: new FormControl(0, Validators.required)
+    name: new FormControl('', Validators.required),
+    code: new FormControl('', Validators.required),
+    weight: new FormControl(0, Validators.required)
   });
+  product:ProductModel[] = []
   submitted: boolean = false;
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private productService: ProductService, private router: Router) {
 
+  }
+  ngOnInit(){
+    const token = localStorage.getItem('authToken');
+    
+    if(!token)
+      this.router.navigate(['/login'])
   }
   onSubmit() {
     this.submitted = true;
     if (this.productForm.valid) {
       const newProduct: ProductModel = {
-        productName: this.productForm.value.productName,
-        productCode: this.productForm.value.productCode,
-        productWeight: this.productForm.value.productWeight
+        name: this.productForm.value.name,
+        code: this.productForm.value.code,
+        weight: this.productForm.value.weight
       }
-      this.userService.adduser(this.productForm.value).subscribe({
+      const token: string = localStorage.getItem('authToken') as string;
+      this.productService.addProduct(this.productForm.value,token).subscribe({
         next: (res) => {
           this.router.navigate(['/productlist'])
         },

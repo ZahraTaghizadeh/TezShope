@@ -4,12 +4,8 @@ export interface UserModel{
     role: number;
     phone: string;
     nationalCode: string;
-    userName: string;
+    username: string;
     password: string;
+    id?:string
 
-}
-export interface ProductModel{
-    productName: string,
-    productCode: string,
-    productWeight: number
 }

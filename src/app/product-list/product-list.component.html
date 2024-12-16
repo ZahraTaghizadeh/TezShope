@@ -15,18 +15,18 @@
         </tr>
     </thead>
     <tbody>
-        @for (product of products; track product.productCode;let i = $index)
+        @for (product of products; track product.code;let i = $index)
         {
         <tr>
             <td>{{ i+ 1}}</td>
-            <td>{{product.productName}}</td>
-            <td>{{product.productCode}}</td>
-            <td>{{product.productWeight}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.code}}</td>
+            <td>{{product.weight}}</td>
             <td>
-                <button [routerLink]="['/productedit',product.productCode]" (click)="editUser(product.productCode)" class="edit-button">ویرایش</button>
+                <button [routerLink]="['/productedit',product.code]" (click)="editProduct(product.code)" class="edit-button">ویرایش</button>
             </td>
             <td>
-                <button class="delete-button" (click)="deleteUser(product.productCode)">حذف</button>
+                <button class="delete-button" *ngIf="product.id" (click)="deleteProduct(product.id!)">حذف</button>
             </td>
         </tr>
         }@empty {

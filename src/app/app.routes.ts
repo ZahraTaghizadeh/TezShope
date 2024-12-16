@@ -4,8 +4,14 @@ import { ListUserComponent } from './list-user/list-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { HomeComponent } from './home/home.component';
 import { ProductListComponent } from './product-list/product-list.component';
+import { LoginComponent } from './login/login.component';
+import { ProductAddComponent } from './product-add/product-add.component';
+import { ProductEditComponent } from './product-edit/product-edit.component';
 
 export const routes: Routes = [{
+    path: 'login',
+    component:LoginComponent
+},{
     path: 'adduser',
     component: AddUserComponent
 },
@@ -14,7 +20,7 @@ export const routes: Routes = [{
     component: ListUserComponent
 },
 {
-    path: 'edituser/:nationalcode',
+    path: 'edituser/:username',
     component: EditUserComponent
 },
 {
@@ -27,11 +33,11 @@ export const routes: Routes = [{
 },
 {
     path: 'productadd',
-    component: ProductListComponent
+    component: ProductAddComponent
 },
 {
-    path: 'productedit/:productcode',
-    component: ProductListComponent
+    path: 'productedit/:code',
+    component: ProductEditComponent
 },
 {
     path: '*',

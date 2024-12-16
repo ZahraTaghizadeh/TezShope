@@ -7,33 +7,33 @@
     <thead>
         <tr>
             <th>#</th>
-            <th>نام</th>
-            <th>نام خانوادگی</th>
+            <!-- <th>نام</th>
+            <th>نام خانوادگی</th> -->
             <th>نقش</th>
-            <th>شماره موبایل</th>
-            <th>کد ملی</th>
+            <!-- <th>شماره موبایل</th> -->
+            <!-- <th>کد ملی</th> -->
             <th>نام کاربری</th>
             <th>ویرایش</th>
             <th>حذف</th>
         </tr>
     </thead>
     <tbody>
-        @for (user of users; track user.nationalCode;let i = $index)
+        @for (user of users; track user.username;let i = $index)
         {
         <tr>
             <td>{{ i+ 1}}</td>
-            <td>{{user.firstName}}</td>
-            <td>{{user.lastName}}</td>
+            <!-- <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td> -->
             <td>{{user.role === 1 ? 'ادمین': 'عادی'}}</td>
-            <td>{{user.phone}}</td>
-            <td>{{user.nationalCode}}</td>
-            <td>{{user.userName}}</td>
+            <!-- <td>{{user.phone}}</td>
+            <td>{{user.nationalCode}}</td> -->
+            <td>{{user.username}}</td>
             <td>
-                <button [routerLink]="['/edituser',user.nationalCode.toString()]" routerLinkActive="Active"
-                    (click)="editUser(user.nationalCode)" class="edit-button">ویرایش</button>
+                <button [routerLink]="['/edituser',user.username.toString()]" routerLinkActive="Active"
+                    (click)="editUser(user.username)" class="edit-button">ویرایش</button>
             </td>
             <td>
-                <button class="delete-button" (click)="deleteUser(user.nationalCode)">حذف</button>
+                <button class="delete-button" *ngIf="user.id" (click)="deleteUser(user.id!)">حذف</button>
             </td>
         </tr>
         }@empty {

@@ -1,64 +1,77 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators,ReactiveFormsModule  } from '@angular/forms';
-import { ProductModel, UserModel } from '../../model/user.model';
-import { CommonModule } from '@angular/common'; 
-import { UserService } from '../../services/user.service';
+import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProductModel } from '../../model/product.model';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-product-edit',
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './product-edit.component.html',
   styleUrl: './product-edit.component.scss'
 })
 export class ProductEditComponent {
   productForm: FormGroup = new FormGroup({
-    productName: new FormControl('', Validators.required),
-    productCode: new FormControl('', Validators.required),
-    productWeight: new FormControl(0, Validators.required)
+    name: new FormControl('', Validators.required),
+    code: new FormControl('', Validators.required),
+    weight: new FormControl(0, Validators.required)
   });
   submitted: boolean = false;
-  constructor(private userService:UserService,private route:ActivatedRoute, private router: Router){
-
+  productId: string = '' ;
+  products: ProductModel[] = []
+  constructor(private productService: ProductService, private route: ActivatedRoute, private router: Router) {
   }
-  onSubmit(){
+  onSubmit() {
     this.submitted = true;
     if (this.productForm.valid) {
-      const Product: ProductModel = {
-        productName: this.productForm.value.productName,
-        productCode: this.productForm.value.productCode,
-        productWeight: this.productForm.value.productWeight
+      const newproduct: ProductModel = {
+        name: this.productForm.value.name,
+        code: this.productForm.value.code,
+        weight: this.productForm.value.weight,
+        id: this.productId
       }
-      this.userService.editUser(this.productForm.value).subscribe({
-        next:(res) => {
+      const token : string = localStorage.getItem('authToken') as string;
+      this.productService.editProduct(newproduct,token).subscribe({
+        next: (res) => {
           this.router.navigate(['/productlist'])
         },
-        error:(err) => {
+        error: (err) => {
           console.log('faild', err);
         }
       })
-      console.log('Success',Product)
+      console.log('Success', newproduct)
     }
   }
   ngOnInit() {
-    this.route.paramMap.subscribe(p => {
-      const productcode = p.get('productcode');
-      if(productcode)
-      {
-        this.userService.getUser(String(productcode)).subscribe({
-          next:(product: ProductModel) =>{
-            this.productForm.patchValue(product)
-            this.router.navigate(['prosductlist'])
-          },
-          error: (err) =>{
-          }
-        })
-        
-      }
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      this.router.navigate(['/login'])
+      return;
+    }
+    this.productService.getProducts(token).subscribe((d: any) => {
+      this.products = Object.keys((d)).map( key => ({key,...d[key]}));
+      console.log(this.products)
+      this.route.paramMap.subscribe(p => {
+        const code = p.get('code');
+        if (code) {
+          const product = this.products.find(u => u.code = code);
+          if (product) {
+              this.productId = product.id ? product.id: '';
+                this.productForm.patchValue({
+                  name: product.name,
+                  code: product.code,
+                  weight: product.weight,
+                  id: product.id
+                })
+            }
 
+        }
+
+      })
     })
   };
-  backToProductList(){
+  backToProductList() {
     this.router.navigate(['/productlist'])
   }
 }

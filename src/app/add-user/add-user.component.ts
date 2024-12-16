@@ -17,13 +17,18 @@ export class AddUserComponent {
       role: new FormControl(0, Validators.required),
       nationalCode: new FormControl('', [Validators.required, Validators.pattern(/^\d{10}$/)]),
       phone: new FormControl('', Validators.required),
-      userName: new FormControl('', Validators.required),
+      username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
   });
   user:UserModel[] = []
   submitted: boolean = false;
   constructor(private userService:UserService, private router: Router){
 
+  }
+  ngOnInit(){
+    const token = localStorage.getItem('authToken');
+    if(!token)
+      this.router.navigate(['/login'])
   }
   onSubmit(){
     this.submitted = true;
@@ -34,13 +39,13 @@ export class AddUserComponent {
       role: Number(this.userForm.value.role), 
       nationalCode: this.userForm.value.nationalCode,
       phone: this.userForm.value.phone,
-      userName: this.userForm.value.userName,
+      username: this.userForm.value.username,
       password: this.userForm.value.password,
       }
       console.log('Role Value:', this.userForm.value.role);
-
-      this.user.push(newUser);
-      this.userService.adduser(this.userForm.value).subscribe({
+      const token: string = localStorage.getItem('authToken') as string;
+      console.log(token)
+      this.userService.adduser(this.userForm.value,token).subscribe({
         next:(res) => {
           this.router.navigate(['/userlist'])
         },
